@@ -5,6 +5,25 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var router = express.Router();
 var players = [];
+var map = {
+    backgrounds: [
+        {
+            type: "tree_1",
+            x: 0,
+            y: 0,
+        },
+        {
+            type: "tree_1",
+            x: 40,
+            y: 0,
+        },
+        {
+            type: "tree_2",
+            x: 80,
+            y: 0,
+        }
+    ]
+};
 var maxId = 0;
 
 router.get('/', function(req, res) {
@@ -20,6 +39,7 @@ io.on('connection', function(client) {
     client.on('join', function(data) {
         players[id] = data;
         io.sockets.emit('players', players);
+        io.sockets.emit('map', map);
     });
     client.on('move', function(data) {
         console.log("Player #" + id + " moved");
@@ -31,10 +51,6 @@ io.on('connection', function(client) {
         delete players[id];
         io.sockets.emit('players', players);
     });
-    /*client.on('messages', function(data) {
-        client.emit('broad', data);
-        client.broadcast.emit('broad',data);
-    });*/
 });
 
 server.listen(port);

@@ -5,6 +5,7 @@ var Poketek = {
   context: canvas.getContext("2d"),
   socket: socket,
   players: [],
+  map: {},
   player: {
     id: 0,
     position: {
@@ -41,7 +42,20 @@ var Poketek = {
     animate();
   },
   drawMap: function() {
-    
+    Poketek.map.backgrounds.forEach(function(item) {
+      if (!item)
+        return;
+      switch(item.type)
+      {
+        case "tree_1":
+          Poketek.context.drawImage(assets.global_tilesets, 20, 0, 40, 50, item.x, item.y, 40, 50);
+          break;
+
+        case "tree_2":
+          Poketek.context.drawImage(assets.global_tilesets, 67, 0, 40, 50, item.x, item.y, 40, 50);
+          break;
+      }
+    });
   },
   drawPlayers: function() {
     Poketek.players.forEach(function(data) {
@@ -53,8 +67,8 @@ var Poketek = {
   },
   update: function() {
     this.clear();
-    this.drawPlayers();
     this.drawMap();
+    this.drawPlayers();
   }
 };
 
@@ -74,6 +88,10 @@ window.onload = function() {
   });
   socket.on('players', function(data) {
     Poketek.players = data;
+  });
+  socket.on('map', function(data) {
+    console.log("Map was updated");
+    Poketek.map = data;
   });
 }
 
