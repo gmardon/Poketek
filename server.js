@@ -11,17 +11,23 @@ var map = {
             type: "tree_1",
             x: 0,
             y: 0,
+            level: 1,
         },
         {
             type: "tree_1",
             x: 40,
             y: 0,
+            level: 1,
         },
         {
             type: "tree_2",
             x: 80,
             y: 0,
+            level: 1,
         }
+    ],
+    grounds: [
+
     ]
 };
 var maxId = 0;
@@ -52,9 +58,11 @@ io.on('connection', function(client) {
         io.sockets.emit('players', players);
     });
     client.on('add_background', function(data) {
-        console.log("add bk");
-        console.log(data);
         map.backgrounds.push(data);
+        io.sockets.emit('map', map);
+    });
+    client.on('add_ground', function(data) {
+        map.grounds.push(data);
         io.sockets.emit('map', map);
     });
 });

@@ -42,8 +42,18 @@ var Poketek = {
     animate();
   },
   drawMap: function() {
-    if (!Poketek.map.backgrounds)
+    if (!Poketek.map.backgrounds || !Poketek.map.grounds)
       return;
+    Poketek.map.grounds.forEach(function(item) {
+      if (!item)
+        return;
+      switch(item.type)
+      {
+        case "dirt_1":
+          Poketek.context.drawImage(assets.global_tilesets, 23, 246, 34, 35, item.x, item.y, 34, 35);
+          break;
+      }
+    });
     Poketek.map.backgrounds.forEach(function(item) {
       if (!item)
         return;
@@ -91,8 +101,6 @@ window.onload = function() {
     Poketek.players = data;
   });
   socket.on('map', function(data) {
-    console.log("Map was updated");
-    console.log(data);
     Poketek.map = data;
   });
 }
@@ -114,10 +122,10 @@ function keyDownHandler(e) {
       Poketek.player.move(1);
       break;
     case 49:
-      socket.emit('add_background', { type: "tree_1", x: Poketek.player.position.x, y: Poketek.player.position.y });
+      socket.emit('add_background', { type: "tree_1", x: Poketek.player.position.x, y: Poketek.player.position.y, level: 1});
       break;
     case 50:
-      socket.emit('add_background', { type: "tree_2", x: Poketek.player.position.x, y: Poketek.player.position.y });
+      socket.emit('add_ground', { type: "grass_1", x: Poketek.player.position.x, y: Poketek.player.position.y, level: 0});
       break;
     default:
       console.log("Keypressed: " + e.keyCode);
