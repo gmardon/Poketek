@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Poketek</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  </head>
+  <body>
+    <section id="app" class="section">
+        <div class="container">
+            <h1 class="title">
+                Poketek
+            </h1>
+            <p class="subtitle">
+              An online Pokemon clone
+            </p>
+            <div class="columns">
+              <div class="column"></div>
+              <div class="column is-half">
+                  <div class="box">
+                      <canvas id="canvas" width="460" height="460"></canvas>
+                  </div>
+              </div>
+              <div class="column"></div>
+            </div>        
+          </div>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script src="./scripts/utils.js"></script>
+    <script src="./scripts/Poketek.js"></script>
+  </body>
+</html>
