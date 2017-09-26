@@ -42,6 +42,8 @@ var Poketek = {
     animate();
   },
   drawMap: function() {
+    if (!Poketek.map.backgrounds)
+      return;
     Poketek.map.backgrounds.forEach(function(item) {
       if (!item)
         return;
@@ -50,7 +52,6 @@ var Poketek = {
         case "tree_1":
           Poketek.context.drawImage(assets.global_tilesets, 20, 0, 40, 50, item.x, item.y, 40, 50);
           break;
-
         case "tree_2":
           Poketek.context.drawImage(assets.global_tilesets, 67, 0, 40, 50, item.x, item.y, 40, 50);
           break;
@@ -91,6 +92,7 @@ window.onload = function() {
   });
   socket.on('map', function(data) {
     console.log("Map was updated");
+    console.log(data);
     Poketek.map = data;
   });
 }
@@ -111,6 +113,14 @@ function keyDownHandler(e) {
     case 37:
       Poketek.player.move(1);
       break;
+    case 49:
+      socket.emit('add_background', { type: "tree_1", x: Poketek.player.position.x, y: Poketek.player.position.y });
+      break;
+    case 50:
+      socket.emit('add_background', { type: "tree_2", x: Poketek.player.position.x, y: Poketek.player.position.y });
+      break;
+    default:
+      console.log("Keypressed: " + e.keyCode);
   }
 }
 

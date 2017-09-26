@@ -47,9 +47,15 @@ io.on('connection', function(client) {
         io.sockets.emit('players', players);
     });
     client.on('disconnect', function(data) {
-        console.log("end");
+        console.log("Player #" + id + " disconnected");
         delete players[id];
         io.sockets.emit('players', players);
+    });
+    client.on('add_background', function(data) {
+        console.log("add bk");
+        console.log(data);
+        map.backgrounds.push(data);
+        io.sockets.emit('map', map);
     });
 });
 
