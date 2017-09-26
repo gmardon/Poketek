@@ -52,6 +52,9 @@ var Poketek = {
         case "dirt_1":
           Poketek.context.drawImage(assets.global_tilesets, 23, 246, 34, 35, item.x, item.y, 34, 35);
           break;
+        case "grass_1":
+          Poketek.context.drawImage(assets.global_tilesets, 16, 320, 16, 16, item.x, item.y, 16, 16);
+          break;
       }
     });
     Poketek.map.backgrounds.forEach(function(item) {
@@ -64,6 +67,9 @@ var Poketek = {
           break;
         case "tree_2":
           Poketek.context.drawImage(assets.global_tilesets, 67, 0, 40, 50, item.x, item.y, 40, 50);
+          break;
+        case "herb_1":
+          Poketek.context.drawImage(assets.global_tilesets, 48, 320, 16, 16, item.x, item.y, 16, 16);
           break;
       }
     });
@@ -122,7 +128,7 @@ function keyDownHandler(e) {
       Poketek.player.move(1);
       break;
     case 49:
-      socket.emit('add_background', { type: "tree_1", x: Poketek.player.position.x, y: Poketek.player.position.y, level: 1});
+      socket.emit('add_background', { type: "herb_1", x: Poketek.player.position.x, y: Poketek.player.position.y, level: 1});
       break;
     case 50:
       socket.emit('add_ground', { type: "grass_1", x: Poketek.player.position.x, y: Poketek.player.position.y, level: 0});
